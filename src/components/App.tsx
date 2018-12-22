@@ -29,6 +29,7 @@ class App extends Component<IAppProps> {
                 <Router>
                     <>
                         <PrivateRoute path="/feed" exact component={Feed}/>
+                        <PrivateRoute path="/" exact component={Feed}/>
                         <PrivateRoute path="/create" exact component={Create}/>
                         <Route path="/login" exact component={Login}/>
                     </>

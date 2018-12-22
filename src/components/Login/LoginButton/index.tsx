@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import * as Styled from './styles';
 import {inject, observer} from 'mobx-react';
 import {RootStore} from '../../../store';
+import {withRouter} from 'react-router';
 
 interface ILoginButtonProps {
     children: React.ReactNode;
     store?: RootStore;
+    history?: any;
 }
 
 @inject('store')
@@ -15,7 +17,9 @@ class LoginButton extends Component<ILoginButtonProps> {
     login = () => {
         // @ts-ignore
         this.props.store.authStore.login()
-            .then(() => console.log('Finished!'))
+            .then(() => {
+                this.props.history.push('/feed')
+            })
             .catch(() => console.log('errored!'));
     };
 
@@ -26,4 +30,5 @@ class LoginButton extends Component<ILoginButtonProps> {
     }
 }
 
-export default LoginButton;
+// @ts-ignore
+export default withRouter(LoginButton);

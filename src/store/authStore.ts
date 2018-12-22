@@ -16,7 +16,13 @@ interface AuthInfo {
 
 export class AuthStore {
     private rootStore: RootStore;
-    @observable authInfo?: AuthInfo;
+    @observable authInfo: AuthInfo = {
+        age: 19,
+        email: 'katttergil331@gmail.com',
+        name: '회원',
+        post_list: [''],
+        uid: '0',
+    };
     @observable inProgress: boolean = false;
 
     constructor(rootStore: RootStore) {
@@ -28,13 +34,16 @@ export class AuthStore {
         firebase.initializeApp(config);
     }
 
-    @computed get isAuthenticated () {
+    @computed get isAuthenticated() {
         return window.localStorage.getItem('jwt') !== '' && window.localStorage.getItem('jwt') !== null;
     }
 
     @action current = (uid: string) => {
-        // axios.post(process.env.REACT_APP_API_BASE_URL + '')
-    }
+        axios.post(process.env.REACT_APP_API_BASE_URL + '/data/user', {uid})
+            .then(({data}) => {
+                this.authInfo = data;
+            });
+    };
 
     @action login = () => new Promise((resolve, reject) => {
         this.inProgress = true;
@@ -54,7 +63,7 @@ export class AuthStore {
                 console.log('Success', user!.providerData[0]);
                 this.inProgress = false;
                 axios.post(process.env.REACT_APP_API_BASE_URL + '/auth/login', {uid: user!.providerData[0]!.uid})
-                    .then(({data: { data }}) => {
+                    .then(({data: {data}}) => {
                         this.authInfo = data;
                         this.rootStore.setToken(data.uid);
                     })

@@ -95,6 +95,11 @@ export const QuoteSection = styled.div`
   box-sizing: border-box;
   border-left: .125rem solid #b4b4b4;
   padding-left: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow : hidden;
+  text-overflow: ellipsis;
 `;
 
 export const ArgumentSectionTitle = styled.p`
@@ -131,4 +136,59 @@ export const CreateButton = styled.div`
     text-decoration: none;
   }
   
+`;
+
+export const ArgCard = styled.div`
+  background: #fff;
+  border: 1px solid #d0d0d0;
+  border-radius: .25rem;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 0 0 auto;
+  padding: 1rem;
+  margin-top: .5rem;
+`;
+
+export const FlexBox = styled.div`
+  display: flex;
+  align-items: center;
+  
+  svg {
+    margin-right: .5rem;
+  }
+`;
+
+export const ArgName = styled.p`
+  font-size: .875rem;
+  margin-right: .5rem;
+`;
+
+export const ArgDate = styled.p`
+  font-size: .875rem;
+  color: #b0b0b0;
+`;
+
+export const ArgTitle = styled.h4`
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: .5rem;
+`;
+
+export const ArgEmpty = styled.p`
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: .75rem;
+    color: #b0b0b0;
+`;
+
+export const ArgImage = styled.img`
+    border-radius: 50%;
+    overflow: hidden;
+    width: 2rem;
+    height: 2rem;
+    margin-right: .5rem;
+    border: 1px solid #f5f5f5;
 `;

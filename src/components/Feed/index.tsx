@@ -24,7 +24,10 @@ class Feed extends Component<IFeedProps> {
     componentDidMount(): void {
         window.addEventListener('scroll', this.handleScroll);
         this.props.store.postStore.load();
-        console.log(this.props.store.authStore.authInfo, this.props.store.authStore.isAuthenticated, this.props.store.token);
+        if (this.props.store.token && this.props.store.authStore.authInfo.uid === '0') {
+            console.log('need data')
+            this.props.store.authStore.current(this.props.store.token);
+        }
     }
 
     componentWillUnmount(): void {
@@ -44,7 +47,7 @@ class Feed extends Component<IFeedProps> {
                             <div>
                                 <Styled.Youthquare/>
                                 <Styled.Title>
-                                    김진원님,
+                                    {this.props.store.authStore.authInfo.name}님,
                                     안녕하세요
                                 </Styled.Title>
                                 <Styled.Date>
@@ -78,7 +81,7 @@ class Feed extends Component<IFeedProps> {
                                                       uid={this.props.store.token}
                                                       token={post.post_token}
                                                       title={post.title}
-                                                      content={post.content} />
+                                                      content={post.content}/>
                                         ))
                                     }
                                 </div>

@@ -3,6 +3,9 @@ import * as Styled from './styles';
 import {Link} from 'react-router-dom';
 import {inject, observer} from 'mobx-react';
 import {RootStore} from '../../../store';
+import {computed, observable, toJS} from 'mobx';
+import {ReactComponent as LikeLogo} from '../../../assets/ic_like.svg';
+import {ReactComponent as DislikeLogo} from '../../../assets/ic_dislike.svg';
 
 export interface INewsCardProps {
     image: string;
@@ -22,9 +25,18 @@ class NewsCard extends Component<INewsCardProps> {
         this.state = {};
     }
 
+    @observable args: any[] = [];
+
+    @computed get data() {
+        return toJS(this.args);
+    }
+
     componentDidMount(): void {
         this.props.store.postStore.loadArg(this.props.token)
-            .then((res) => console.log(res))
+            .then(({data}: any) => {
+                console.log(data);
+                this.args = data;
+            });
     }
 
     render() {
@@ -60,6 +72,25 @@ class NewsCard extends Component<INewsCardProps> {
                                     + 새로운 주장 만들기
                                 </Styled.CreateButton>
                             </Link>
+                            {
+                                this.data.length !== 0 ? this.data.map(({comment}, i) => (
+                                        <Styled.ArgCard>
+                                            <Styled.ArgTitle>{comment.comment_title}</Styled.ArgTitle>
+                                            <Styled.FlexBox>
+                                                <Styled.ArgImage alt={comment.comment_user_name}
+                                                                 src={comment.comment_user_profile}/>
+                                                <Styled.ArgName>{comment.comment_user_name}</Styled.ArgName>
+                                                <Styled.ArgDate>{comment.comment_date}</Styled.ArgDate>
+                                            </Styled.FlexBox>
+                                            <p>{comment.comment_content}</p>
+                                            <Styled.FlexBox style={{justifyContent: 'flex-end'}}>
+                                                <p><LikeLogo/>{comment.comment_like}</p>
+                                                <p style={{marginLeft: '.5rem'}}><DislikeLogo/>{comment.comment_dislike}</p>
+                                            </Styled.FlexBox>
+                                        </Styled.ArgCard>
+                                    ))
+                                    : <Styled.ArgEmpty>주장이 없습니다!</Styled.ArgEmpty>
+                            }
                         </Styled.Arglist>
                     </div>
                 </Styled.ContentSection>
