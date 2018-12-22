@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-import Layout from '../common/Layout';
 
 class Feed extends Component {
     render() {
         return (
-            <Layout>
+            <div>
                 Feed
-            </Layout>
+            </div>
         );
     }
 }
