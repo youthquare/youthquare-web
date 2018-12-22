@@ -5,6 +5,7 @@ import * as Styled from './styles';
 import {inject, observer} from 'mobx-react';
 import {RootStore} from '../store';
 import Feed from './Feed';
+import Create from './Create';
 
 interface IAppProps {
     children?: React.ReactNode;
@@ -27,8 +28,8 @@ class App extends Component<IAppProps> {
             <>
                 <Router>
                     <>
-                        <Route path="/feed" exact component={Feed}/>
-                        {/*<PrivateRoute path="/feed" exact component={Feed}/>*/}
+                        <PrivateRoute path="/feed" exact component={Feed}/>
+                        <PrivateRoute path="/create" exact component={Create}/>
                         <Route path="/login" exact component={Login}/>
                     </>
                 </Router>

@@ -1,8 +1,9 @@
 import {ReactComponent as AppLogo} from '../../assets/logo.svg';
 import {ReactComponent as SVGNotifyIcon} from '../../assets/notification.svg';
 import {ReactComponent as SVGSettingIcon} from '../../assets/setting.svg';
+import {ReactComponent as SVGArrowIcon} from '../../assets/arrow.svg';
 import styled from 'styled-components';
-
+import {keyframes} from '../../styled-components';
 export const Youthquare = styled(AppLogo)`
   width: 3rem;
   height: 3rem;
@@ -16,7 +17,7 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   max-width: 1140px;
-  margin: 0 auto;
+  margin: 24rem auto 0;
   box-sizing: border-box;
 `;
 
@@ -39,6 +40,10 @@ export const TitleHolder = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 5rem;
+  position: fixed;
+  top: 0;
+  max-width: 1140px;
+  opacity: ${(props: {opacity: number}) => props.opacity};
 `;
 
 export const NotifyIcon = styled(SVGNotifyIcon)`
@@ -51,6 +56,22 @@ export const SettingIcon = styled(SVGSettingIcon)`
   width: 2rem;
   height: 2rem;
   cursor: pointer;
+`;
+
+const opacity = keyframes`
+  from {
+    opacity: 1;
+    transform: translateY(-.25rem);
+  }
+  to {
+    opacity: .5;
+    transform: translateY(0);
+  }
+`;
+export const ArrowIcon = styled(SVGArrowIcon)`
+  height: 2rem;
+  width: 3rem;
+  animation: ${opacity} .5s ease-in-out infinite alternate;
 `;
 
 export const IconHolder = styled.div`
@@ -87,4 +108,10 @@ export const ActionButton = styled.button`
     position: relative;
     z-index: 1;
   }
+`;
+
+export const ScrollUp = styled.p`
+  color: #d0d0d0;
+  text-align: center;
+  margin: 1rem 0;
 `;
